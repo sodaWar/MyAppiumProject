@@ -1,0 +1,11 @@
+from com.android.monkeyrunner import MonkeyRunner,MonkeyDevice,MonkeyImage
+device = MonkeyRunner.waitForConnection()
+device.startActivity(component="com.tencent.mobileqq/.activity.SplashActivity")
+device.touch(263,1192,'DOWN_AND_UP')
+MonkeyRunner.sleep(3)
+device.touch(360,465,'DOWN_AND_UP')
+MonkeyRunner.sleep(2)
+device.type('893026750')
+device.touch(81,312,'DOWN_AND_UP')
+MonkeyRunner.sleep(2)
+device.type('hongnaiwu3425')

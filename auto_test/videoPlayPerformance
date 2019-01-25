@@ -1,0 +1,71 @@
+# -* encoding:utf-8 *-
+from test_cm_upgrade import *
+import cv2
+
+conn,cur = connDB()
+
+#得到一个视频中的FPS值
+
+video = cv2.VideoCapture("cider.mp4")                               #该方法的参数为0是默认值,为计算机默认摄像头
+
+print video.isOpened()
+
+print video.get(cv2.CAP_PROP_FPS)
+
+# Find OpenCV version,判断OpenCV版本号,有3以上和以下的版本
+(major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
+
+if int(major_ver)  < 3:
+    fps = video.get(cv2.cv.CV_CAP_PROP_FPS)
+    print "Frames per second using video.get(cv2.cv.CV_CAP_PROP_FPS): {0}".format(fps)
+else:
+    fps = video.get(cv2.CAP_PROP_FPS)
+    print "Frames per second using video.get(cv2.CAP_PROP_FPS): {0}".format(fps)
+
+video.release()
+
+# import cv2
+# from time import time
+# cap = cv2.VideoCapture("DJI_0008.MOV")
+# # cap = cv2.VideoCapture(0)
+#
+# # Define the codec and create VideoWriter object
+# # fourcc = cv2.cv.FOURCC(*'XVID')
+# fourcc = cv2.VideoWriter_fourcc(*'XVID')
+# out = cv2.VideoWriter('output1.avi', fourcc, 20, (1920, 1080))
+#
+# num = 0
+#
+# while cap.isOpened():
+#     # get a frame
+#     rval, frame = cap.read()
+#     # save a frame
+#     if rval == True:
+#         #  frame = cv2.flip(frame,0)
+#         # Start time
+#         start = time.time()
+#         rclasses, rscores, rbboxes = process_image(frame)  # 换成自己调用的函数
+#         # End time
+#         end = time.time()
+#         # Time elapsed
+#         seconds = end - start
+#         print("Time taken : {0} seconds".format(seconds))
+#         # Calculate frames per second
+#         fps = 1 / seconds
+#         print("Estimated frames per second : {0}".format(fps))
+#         # bboxes_draw_on_img(frame,rclasses,rscores,rbboxes)
+#         # print(rclasses)
+#         out.write(frame)
+#         num = num + 1
+#         print(num)
+#         # fps = cap.get(cv2.CAP_PROP_FPS)
+#         # print("Frames per second using video.get(cv2.CAP_PROP_FPS) : {0}".format(fps))
+#     else:
+#         break
+#         # show a frame
+#     cv2.imshow("capture", frame)
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+# cap.release()
+# out.release()
+# cv2.destroyAllWindows()
